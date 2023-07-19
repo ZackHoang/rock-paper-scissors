@@ -1,6 +1,7 @@
 const choices = ['rock', 'paper', 'scissor'];
 var userPoint = 0; 
 var computerPoint = 0;
+let computerSelection = getComputerChoice(choices);
 
 function getComputerChoice(choices) {
     return choices[Math.floor(Math.random()*choices.length)];
@@ -30,21 +31,47 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-    let userInput = prompt('Enter your option:'); 
-    let userInput2 = userInput.toLowerCase(); 
-    const computerSelection = getComputerChoice(choices);
-    console.log('computer: ' + computerSelection); 
-    console.log('player: ' + userInput)
-    console.log(playRound(userInput2, computerSelection)); 
-    alert ('User\'s Point: ' + userPoint + ' Computer\'s Point: ' + computerPoint)
-}
+    console.log('computer: ' + computerSelection);
+    if (userPoint === 5) {
+        finalResults.textContent = 'You Won! Press F5 to restart.';
+    } else if (computerPoint === 5) {
+        finalResults.textContent = 'Computer Won! Press F5 to restart.';
+    }
+    return ('User\'s Point: ' + userPoint + ' Computer\'s Point: ' + computerPoint);
+}; 
 
-game();
-game();
-game();
-game();
-game();
-console.log(userPoint);
-console.log(computerPoint); 
+const selectRock = document.createElement('button');  
+selectRock.textContent = 'Rock'; 
+document.body.appendChild(selectRock); 
+selectRock.addEventListener('click', () => {
+    computerSelection = getComputerChoice(choices);
+    playRound('rock', computerSelection); 
+    results.textContent = game();    
+});  
+
+const selectPaper = document.createElement('button'); 
+selectPaper.textContent = 'Paper'; 
+document.body.appendChild(selectPaper);
+selectPaper.addEventListener('click', () => {
+    computerSelection = getComputerChoice(choices);
+    playRound('paper', computerSelection); 
+    results.textContent = game();  
+}); 
+
+const selectScissor = document.createElement('button'); 
+selectScissor.textContent = 'Scissor';
+document.body.appendChild(selectScissor); 
+selectScissor.addEventListener('click', () => {
+    computerSelection = getComputerChoice(choices); 
+    playRound('scissor', computerSelection);  
+    results.textContent = game(); 
+});
+
+const results = document.createElement('div'); 
+document.body.appendChild(results); 
+
+const finalResults = document.createElement('div'); 
+document.body.appendChild(finalResults); 
+ 
 
 
